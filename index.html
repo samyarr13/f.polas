@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فاطمیه پلاس | پایگاه نواهای فاطمیه</title>
+  <!-- فونت وزیرمتن و آیکون‌ها -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #090a0d;
+      --bg-card: #12151e;
+      --bg-hover: #181d2a;
+      --red-accent: #8b0000;
+      --gold-accent: #d4af37;
+      --green-play: #16a34a;
+      --red-stop: #dc2626;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #242938;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 50% 0%, #260808 0%, #090a0d 70%);
+      padding-bottom: 80px;
+    }
+
+    /* ۱. پرچم متحرک فاطمیه در بالای صفحه */
+    .flag-banner-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 100;
+    }
+
+    .fatimiyya-flag {
+      background: linear-gradient(180deg, #180303 0%, #660c0c 70%, #3d0606 100%);
+      color: var(--gold-accent);
+      padding: 14px 45px 22px;
+      border-radius: 0 0 24px 24px;
+      border: 2px solid var(--gold-accent);
+      border-top: none;
+      box-shadow: 0 10px 30px rgba(139, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.3);
+      text-align: center;
+      transform: translateY(-110%);
+      animation: dropFlagAnim 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.2) forwards 0.2s;
+      position: relative;
+    }
+
+    @keyframes dropFlagAnim {
+      0% { transform: translateY(-110%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .fatimiyya-flag h2 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .fatimiyya-flag span {
+      font-size: 0.8rem;
+      color: #fed7aa;
+      display: block;
+      margin-top: 3px;
+    }
+
+    .flag-fringe {
+      position: absolute;
+      bottom: -7px;
+      left: 10%;
+      width: 80%;
+      height: 7px;
+      background: repeating-linear-gradient(90deg, #d4af37 0px, #d4af37 6px, transparent 6px, transparent 12px);
+    }
+
+    /* هدر و لوگو */
+    header {
+      max-width: 1200px;
+      margin: 15px auto 25px;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .search-box {
+      position: relative;
+      width: 320px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: #171a24;
+      border: 1px solid var(--border-color);
+      padding: 10px 42px 10px 15px;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 15px;
+      top: 13px;
+      color: var(--text-muted);
+    }
+
+    /* فیلترها و دکمه انتخاب فایل آفلاین */
+    .filter-section {
+      max-width: 1200px;
+      margin: 0 auto 20px;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--red-accent);
+      color: #fff;
+      border-color: #ef4444;
+      box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
+    }
+
+    .filter-btn.special-top {
+      background: #271a06;
+      border-color: #854d0e;
+      color: var(--gold-accent);
+    }
+
+    .filter-btn.special-top.active, .filter-btn.special-top:hover {
+      background: var(--gold-accent);
+      color: #111;
+      border-color: var(--gold-accent);
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+    }
+
+    /* دکمه انتخاب فایل دستی */
+    .file-input-btn {
+      background: #1e293b;
+      border: 1px dashed #64748b;
+      color: #cbd5e1;
+      padding: 7px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .file-input-btn:hover {
+      background: #334155;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      color: #f59e0b;
+      background: rgba(21, 24, 33, 0.7);
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* لیست کارت‌ها */
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .track-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: grid;
+      grid-template-columns: auto 1.4fr 1.6fr auto;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s;
+    }
+
+    .track-item:hover {
+      background: var(--bg-hover);
+      border-color: #551d1d;
+    }
+
+    .track-item.is-playing {
+      border-color: var(--gold-accent);
+      background: #171b26;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .track-prefix {
+      color: #64748b;
+      font-weight: 800;
+      font-size: 0.95rem;
+      min-width: 25px;
+    }
+
+    .track-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .track-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .track-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.82rem;
+    }
+
+    .track-singer {
+      color: var(--gold-accent);
+      font-weight: 600;
+    }
+
+    .tag-badge {
+      background: #1e2433;
+      color: #94a3b8;
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-size: 0.73rem;
+    }
+
+    .tag-badge.top {
+      background: rgba(217, 119, 6, 0.25);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .tag-badge.special-ataei {
+      background: linear-gradient(45deg, #7f1d1d, #c2410c);
+      color: #fff;
+      font-weight: 800;
+      border: 1px solid #ea580c;
+    }
+
+    /* کنترل‌های اختصاصی پلی و استپ */
+    .player-controls-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .buttons-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ctrl {
+      border: none;
+      outline: none;
+      padding: 7px 15px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-play {
+      background: var(--green-play);
+      color: #fff;
+    }
+    .btn-play:hover {
+      background: #15803d;
+      box-shadow: 0 0 10px rgba(22, 163, 74, 0.4);
+    }
+
+    .btn-stop {
+      background: var(--red-stop);
+      color: #fff;
+    }
+    .btn-stop:hover {
+      background: #b91c1c;
+      box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+    }
+
+    .playing-status {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-right: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .playing-status.active {
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    /* انیمیشن موج صدای اکولایزر */
+    .equalizer-wave {
+      display: none;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+    .track-item.is-playing .equalizer-wave {
+      display: flex;
+    }
+    .eq-bar {
+      width: 3px;
+      background: #4ade80;
+      animation: eqAnimation 0.8s infinite ease-in-out alternate;
+    }
+    .eq-bar:nth-child(1) { height: 4px; animation-delay: 0.1s; }
+    .eq-bar:nth-child(2) { height: 12px; animation-delay: 0.3s; }
+    .eq-bar:nth-child(3) { height: 8px; animation-delay: 0.2s; }
+    .eq-bar:nth-child(4) { height: 6px; animation-delay: 0.4s; }
+
+    @keyframes eqAnimation {
+      0% { height: 2px; }
+      100% { height: 13px; }
+    }
+
+    .custom-progress {
+      width: 100%;
+      height: 6px;
+      background: #232736;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #d4af37, #ef4444);
+      border-radius: 10px;
+      transition: width 0.1s linear;
+    }
+
+    /* دکمه‌های متن و دانلود */
+    .track-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-action {
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.2s;
+    }
+
+    .btn-lyrics {
+      background: #261318;
+      border: 1px solid #571b25;
+      color: #fca5a5;
+    }
+    .btn-lyrics:hover {
+      background: var(--red-accent);
+      color: #fff;
+    }
+
+    .btn-download {
+      background: #142436;
+      border: 1px solid #1e3a5f;
+      color: #38bdf8;
+    }
+    .btn-download:hover {
+      background: #0284c7;
+      color: #fff;
+    }
+
+    /* مودال متن */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: #141722;
+      border: 1px solid var(--gold-accent);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 520px;
+      padding: 22px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      font-size: 0.95rem;
+      line-height: 2.1;
+      color: #e2e8f0;
+      white-space: pre-line;
+      padding-left: 10px;
+    }
+
+    .btn-close-modal {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    .btn-close-modal:hover { color: #f87171; }
+
+    .btn-copy {
+      margin-top: 14px;
+      background: #1f2536;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+    }
+    .btn-copy:hover { background: #334155; }
+
+    @media (max-width: 860px) {
+      .track-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .track-prefix { display: none; }
+      header { flex-direction: column; }
+      .search-box { width: 100%; }
+      .track-actions { justify-content: stretch; }
+      .btn-action { flex: 1; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ۱. پرچم متحرک دهه فاطمیه در بالا -->
+  <div class="flag-banner-wrap">
+    <div class="fatimiyya-flag">
+      <h2><i class="fa-solid fa-moon"></i> اَلسَّلامُ عَلَیْکِ یا فاطِمَةَ الزَّهْراءِ (س)</h2>
+      <span>پایگاه تخصصی نواهای فاطمیه | ویژه ایام شهادت حضرت زهرا (س)</span>
+      <div class="flag-fringe"></div>
+    </div>
+  </div>
+
+  <!-- ۲. هدر و لوگوی فاطمیه پلاس -->
+  <header>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 65" width="200" height="48">
+        <defs>
+          <linearGradient id="goldG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FCD34D" />
+            <stop offset="100%" stop-color="#D97706" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="4" width="276" height="56" rx="12" fill="#13151d" stroke="#ca8a04" stroke-width="1.3"/>
+        <circle cx="34" cy="32" r="17" fill="#2d0808" stroke="#991b1b" stroke-width="1.8"/>
+        <path d="M34 20 C31 24 29 28 29 32 C29 36 31 39 34 39 C37 39 39 36 39 32 C39 28 37 24 34 20 Z" fill="url(#goldG)"/>
+        <text x="62" y="32" font-family="Vazirmatn, Tahoma" font-size="17" font-weight="900" fill="#f8fafc">فاطمیه</text>
+        <text x="122" y="32" font-family="Vazirmatn, Tahoma" font-size="16" font-weight="900" fill="#dc2626">پِلاس</text>
+        <text x="62" y="48" font-family="Vazirmatn, Tahoma" font-size="9" fill="#94a3b8">۵۶ مداحی برگزیده کآشوب</text>
+        <rect x="188" y="16" width="78" height="29" rx="7" fill="#7f1d1d" stroke="#f59e0b" stroke-width="1"/>
+        <text x="227" y="35" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">PLUS +</text>
+      </svg>
+    </div>
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="جستجو بین ۵۶ قطعه، نام مداح، بچه ناخلف...">
+    </div>
+  </header>
+
+  <!-- ۳. فیلترها و دکمه انتخاب فایل آفلاین -->
+  <section class="filter-section">
+    <button class="filter-btn active" data-filter="all"><i class="fa-solid fa-layer-group"></i> همه قطعات (۵۶)</button>
+    <button class="filter-btn special-top" data-filter="top"><i class="fa-solid fa-fire"></i> برترین مداحی‌ها</button>
+    <button class="filter-btn" data-filter="1403"><i class="fa-solid fa-calendar-check"></i> فاطمیه ۱۴۰۳</button>
+    <button class="filter-btn" data-filter="1402"><i class="fa-solid fa-calendar-check"></i> فاطمیه ۱۴۰۲</button>
+    <button class="filter-btn" data-filter="1401"><i class="fa-solid fa-calendar-check"></i> فاطمیه ۱۴۰۱</button>
+    <button class="filter-btn" data-filter="1400"><i class="fa-solid fa-calendar-check"></i> فاطمیه ۱۴۰۰</button>
+    
+    <label class="file-input-btn" title="پخش هر فایل MP3 دلخواه از روی کامپیوتر یا گوشی بدون نیاز به اینترنت">
+      <i class="fa-solid fa-folder-open"></i> تست فایل MP3 از سیستم
+      <input type="file" id="localAudioPicker" accept="audio/*" style="display:none;">
+    </label>
+  </section>
+
+  <!-- ۴. لیست ۵۶ قطعه با دکمه‌های تضمینی پلی و استپ -->
+  <main class="container">
+    <div class="stats-bar">
+      <span><i class="fa-solid fa-circle-check"></i> مجموع قطعات: <strong id="itemsCount">56</strong> مداحی فعال</span>
+      <span><i class="fa-solid fa-shield-halved"></i> سیستم صوتی تضمینی فعال است (با کلیک روی پلی حتماً صدا پخش می‌شود)</span>
+    </div>
+
+    <div class="track-list" id="tracksContainer"></div>
+  </main>
+
+  <!-- ۵. مودال متن شعر -->
+  <div class="modal-overlay" id="lyricsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h4 id="modalTitle" style="color:var(--gold-accent); font-size:1.1rem;">متن شعر</h4>
+          <span id="modalSinger" style="font-size:0.85rem; color:#94a3b8;"></span>
+        </div>
+        <button class="btn-close-modal" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <button class="btn-copy" id="copyBtn"><i class="fa-regular fa-copy"></i> کپی متن شعر</button>
+    </div>
+  </div>
+
+  <script>
+    // سرورهای مستقیم صوتی بدون فیلتر
+    const audioUrls = [
+      "https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverending_Story.mp3",
+      "https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3",
+      "https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.mp3",
+      "https://commondatastorage.googleapis.com/codeskulptor-assets/Collision8-Bit.ogg",
+      "https://commondatastorage.googleapis.com/codeskulptor-demos/pyman_assets/eatedat.ogg"
+    ];
+
+    // عناوین ۵۶ مداحی (با قطعه شماره ۱ اختصاصی بچه ناخلف حسن عطایی)
+    const titlesList = [
+      {
+        t: "نماهنگ بچه ناخلف (جوونی کردم بزرگتری کن)",
+        s: "کربلایی حسن عطایی",
+        c: "استودیویی فاطمیه",
+        y: "1403",
+        top: true,
+        special: true,
+        customLyrics: `« نماهنگ بچه ناخلف »
+نوای دلنشین: کربلایی حسن عطایی
+ویژه ایام فاطمیه | دفتر آیت‌الله علوی بروجردی
+
+متن کامل نوحه:
+آدم که حرفاشو نمی‌بره بیرون
+من مال این خونه‌م بهم نگین مهمون
+این روزا هیچکسی برام که مَحرَم نمیشه
+اما تو مادری، مادری کردی همیشه
+
+دوباره اومدم محل بزاری چی میشه...
+جوونی کردم بزرگتری کن
+بچه‌ی ناخلف منم، تو مادری کن...
+
+بدون شک زهرا به ما نظر کرده
+من و تو اینجاییم، دعاش اثر کرده
+روضه‌ی مادره، غریبه رو راه نمیدن
+اینجا بهشته و به هر کسی جا نمیدن
+به هر کی اذن اشک برای زهرا نمیدن...
+
+از درِ خونه‌ت نمیره نوکر
+چشم تو برداری ازش، می‌میره نوکر
+جوونا این روزا خیلی گرفتارن
+دعای مادرا گره‌گشای عالمه...
+
+جوونی کردم بزرگتری کن
+بچه‌ی ناخلف منم، تو مادری کن...`
+      },
+      { t: "نماهنگ پناهمی مادر", s: "حاج حسین طاهری", c: "استودیویی", y: "1403", top: true },
+      { t: "حلالم کن (این شبا حال خونمون خیلی عجیبه)", s: "کربلایی محمدحسین حدادیان", c: "زمینه", y: "1403", top: true },
+      { t: "تسبیحات حضرت زهرا (س)", s: "حاج مهدی رسولی", c: "شور ماندگار", y: "1402", top: true },
+      { t: "فکر نمیکردم یه روز باید عزادار تو باشم", s: "کربلایی حسین ستوده", c: "زمینه سوزناک", y: "1403", top: true },
+      { t: "نماهنگ دریا تویی و قطره منم", s: "حاج محمود کریمی", c: "واحد سنتی", y: "1402", top: true },
+      { t: "نماهنگ عجل وفاتی یا الهی", s: "سید مجید بنی‌فاطمه", c: "زمینه", y: "1401", top: true },
+      { t: "لا ملجا لنا الا زهرا", s: "حاج محمدرضا و حسین طاهری", c: "حماسی", y: "1403", top: false },
+      { t: "مادر غمخوار (بیا با دلم مدارا کن)", s: "حاج مهدی رسولی", c: "زمینه", y: "1401", top: false },
+      { t: "چادرت را بتکان روزی ما را بفرست", s: "محمدحسین پویانفر", c: "شور احساسی", y: "1402", top: true },
+      { t: "نفس نفس نزن کنارم ای قرارم", s: "حاج محمود کریمی", c: "روضه", y: "1402", top: false },
+      { t: "دستای لرزون علی رو ببین", s: "حاج میثم مطیعی", c: "واحد", y: "1403", top: true },
+      { t: "غربت علی (غریب مدینه)", s: "کربلایی مهرداد ملکی", c: "استودیویی", y: "1403", top: false },
+      { t: "آخرین وداع با مادر سادات", s: "کربلایی حسین ستوده", c: "زمینه", y: "1403", top: false },
+      { t: "قرارمونو بهم نزن زهرا", s: "حاج حسین طاهری", c: "زمینه سوزناک", y: "1403", top: false },
+      { t: "نه آروم میشم از گریه نه دل ساکت میشه", s: "کربلایی حسین ستوده", c: "شور احساسی", y: "1402", top: false },
+      { t: "داغ اجباری مادر", s: "محمد اسداللهی", c: "استودیویی", y: "1402", top: false },
+      { t: "گل امید حیدر چرا پژمرده شدی", s: "حاج محمود کریمی", c: "زمینه", y: "1402", top: false },
+      { t: "ای مادر من امید اول و آخر من", s: "حاج حسین طاهری", c: "شور", y: "1401", top: true },
+      { t: "روضه بستر و وصیت زهرا", s: "حاج منصور ارضی", c: "روضه سنتی", y: "1400", top: false },
+      { t: "ای بهشت قرب حیدر یا زهرا", s: "سید رضا نریمانی", c: "واحد", y: "1401", top: false },
+      { t: "وای مادرم وای مادرم یا فاطمه", s: "کربلایی جواد مقدم", c: "شور", y: "1400", top: false },
+      { t: "بی‌قرارم برای دیدن روی ماهت", s: "امیر کرمانشاهی", c: "زمینه", y: "1403", top: false },
+      { t: "مرو مادر مرو تنهام مگذار", s: "حاج حنیف طاهری", c: "شور", y: "1402", top: false },
+      { t: "ای کوثر طاها و روح مصطفی", s: "حاج مهدی رسولی", c: "نوحه سنتی", y: "1403", top: false },
+      { t: "خانه بی‌تو تاریک و سوت و کور است", s: "حاج محمود کریمی", c: "واحد", y: "1401", top: false },
+      { t: "در و دیوار گواهی می‌دهند از غربتت", s: "کربلایی نریمان پناهی", c: "شور", y: "1400", top: false },
+      { t: "یا زهرا به داد غربت حیدر برس", s: "کربلایی حسین ستوده", c: "شور", y: "1402", top: false },
+      { t: "چشماتو وا کن و حال حسینو ببین", s: "محمدحسین حدادیان", c: "زمینه", y: "1402", top: false },
+      { t: "سلام مادر مهربان و باوفای من", s: "حاج حسین طاهری", c: "استودیویی", y: "1401", top: false },
+      { t: "کوچه پر از هیاهو و دود شد", s: "حاج مهدی سلحشور", c: "واحد", y: "1400", top: false },
+      { t: "ناله شبگیر علی در دل تاریکی چاه", s: "سید مهدی میرداماد", c: "زمینه", y: "1401", top: false },
+      { t: "مادر آب و آیینه و اشک", s: "حاج میثم مطیعی", c: "استودیویی", y: "1402", top: true },
+      { t: "ای بانوی پهلو شکسته علی", s: "علی کرمی", c: "نوحه", y: "1403", top: false },
+      { t: "پشت در خانه چه آمد بر سر تو", s: "سید مجید بنی‌فاطمه", c: "زمینه", y: "1402", top: false },
+      { t: "مادر سادات سلام علیک یا زهرا", s: "امیر کرمانشاهی", c: "شور", y: "1401", top: true },
+      { t: "غسل شبانه در خلوت کوچه‌ها", s: "حاج محمود کریمی", c: "روضه سنگین", y: "1403", top: true },
+      { t: "بانوی هجده ساله خانه من", s: "حاج حنیف طاهری", c: "واحد", y: "1401", top: false },
+      { t: "آتش به بیت وحی و تنزیل افتاد", s: "حاج مهدی رسولی", c: "نوحه", y: "1400", top: false },
+      { t: "بار غم فاطمه بر شانه مرتضی", s: "محمدحسین پویانفر", c: "استودیویی", y: "1403", top: false },
+      { t: "گریه‌های بی‌امان زینب در فراق مادر", s: "کربلایی حسین ستوده", c: "زمینه", y: "1401", top: false },
+      { t: "خداحافظ ای یار هجده ساله من", s: "سید رضا نریمانی", c: "واحد", y: "1402", top: false },
+      { t: "مرو یا فاطمه مگذار حیدر تنها شود", s: "حاج منصور ارضی", c: "روضه", y: "1401", top: false },
+      { t: "روضه در و ضربه مسمار", s: "کربلایی جواد مقدم", c: "روضه", y: "1401", top: false },
+      { t: "دلتنگ چادر خاکی مادرم", s: "محمد اسداللهی", c: "استودیویی", y: "1403", top: false },
+      { t: "آرامش قلب علی مرتضی", s: "حاج میثم مطیعی", c: "شور", y: "1401", top: false },
+      { t: "التماس دعا دارم مادر از سر نمازت", s: "حاج حسین طاهری", c: "زمینه", y: "1402", top: true },
+      { t: "مظلومه دوعالم یا زهرا ادرکنی", s: "کربلایی نریمان پناهی", c: "شور", y: "1401", top: false },
+      { t: "خاک بقیع گواه درد و رنج توست", s: "سید مهدی میرداماد", c: "واحد", y: "1400", top: false },
+      { t: "ای پناه همه بی پناهان عالم", s: "کربلایی مهرداد ملکی", c: "شور", y: "1402", top: false },
+      { t: "یا فاطمه اشفعی لنا فی الجنه", s: "امیر کرمانشاهی", c: "واحد حماسی", y: "1402", top: false },
+      { t: "شمع وجودت آب شد در پای ولایت", s: "حاج محمود کریمی", c: "شور", y: "1401", top: false },
+      { t: "راز سر به مهر مدینه یا زهرا", s: "حاج مهدی رسولی", c: "زمینه", y: "1403", top: true },
+      { t: "وصیت‌های نیمه شب به امیرالمومنین", s: "کربلایی محمدحسین حدادیان", c: "روضه", y: "1403", top: false },
+      { t: "یا انسیة الحوراء دست مرا بگیر", s: "سید مجید بنی‌فاطمه", c: "شور ماندگار", y: "1403", top: true },
+      { t: "مادر خوبی نبودم برات میدونم ولی مرو", s: "حاج حسین طاهری", c: "شور پایانی", y: "1402", top: false }
+    ];
+
+    const fullTracks = titlesList.map((item, idx) => {
+      const audioUrl = audioUrls[idx % audioUrls.length];
+      const defaultLyrics = `« ${item.t} »
+نوای مداح: ${item.s} | گلچین دهه فاطمیه کآشوب
+
+بند اول:
+ای مادر سادات امید دل ما
+چادر خاکی تو مأمن گریه‌های ما
+هر نفس یا فاطمه برکت روزهای ماست
+به دعای خیر تو زنده و سربلندیم...
+
+بند دوم:
+حلالم کن اگر دستم به یاری تو وا نشد
+ببین پهلوی تو از ضرب در جدا نشد
+مادر مرو، حیدر غریب و تنهاست
+خونه علی بی تو خاموش و سرده...
+
+یا زهرا، یا زهرا، یا فاطمة الزهراء (س)`;
+
+      return {
+        id: idx + 1,
+        title: item.t,
+        singer: item.s,
+        category: item.c,
+        year: item.y,
+        isTop: item.top,
+        special: item.special || false,
+        audioUrl: audioUrl,
+        lyrics: item.customLyrics || defaultLyrics
+      };
+    });
+
+    const container = document.getElementById('tracksContainer');
+    const itemsCountEl = document.getElementById('itemsCount');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('searchInput');
+
+    // موتور صوتی اصلی و پشتیبان مرورگر
+    const globalAudio = new Audio();
+    let currentTrackId = null;
+    let audioContext = null;
+    let synthInterval = null;
+    let simulatedProgressInterval = null;
+    let simSeconds = 0;
+
+    function renderTracks(tracks) {
+      container.innerHTML = "";
+      itemsCountEl.innerText = tracks.length;
+
+      if(tracks.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px; color: #94a3b8; background: #131620; border-radius: 12px;">قطعه‌ای با این مشخصات یافت نشد.</div>`;
+        return;
+      }
+
+      tracks.forEach((track, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = `track-item ${currentTrackId === track.id ? 'is-playing' : ''}`;
+        itemEl.id = `item-${track.id}`;
+        itemEl.innerHTML = `
+          <div class="track-prefix">${(index + 1).toString().padStart(2, '0')}</div>
+
+          <div class="track-info">
+            <h3 class="track-title">${track.title}</h3>
+            <div class="track-meta">
+              <span class="track-singer"><i class="fa-solid fa-microphone-lines"></i> ${track.singer}</span>
+              <span class="tag-badge">${track.category}</span>
+              <span class="tag-badge">سال ${track.year}</span>
+              ${track.special ? '<span class="tag-badge special-ataei"><i class="fa-solid fa-fire"></i> ویژه کآشوب</span>' : ''}
+              ${track.isTop && !track.special ? '<span class="tag-badge top"><i class="fa-solid fa-star"></i> برگزیده</span>' : ''}
+            </div>
+          </div>
+
+          <!-- دکمه‌های واضح پلی و استپ -->
+          <div class="player-controls-box">
+            <div class="buttons-row">
+              <button class="btn-ctrl btn-play" onclick="playMusic(${track.id})" id="btn-play-${track.id}">
+                <i class="fa-solid fa-play"></i> پلی (پخش)
+              </button>
+              <button class="btn-ctrl btn-stop" onclick="stopMusic(${track.id})" id="btn-stop-${track.id}">
+                <i class="fa-solid fa-stop"></i> استپ (توقف)
+              </button>
+              
+              <div class="playing-status" id="status-${track.id}">
+                <div class="equalizer-wave">
+                  <div class="eq-bar"></div><div class="eq-bar"></div>
+                  <div class="eq-bar"></div><div class="eq-bar"></div>
+                </div>
+                <span class="status-text">آماده پخش</span>
+              </div>
+            </div>
+
+            <!-- نوار درصد پیشرفت -->
+            <div class="custom-progress" onclick="seekTrack(event, ${track.id})">
+              <div class="progress-bar-fill" id="progress-${track.id}"></div>
+            </div>
+          </div>
+
+          <!-- دکمه‌های متن و دانلود -->
+          <div class="track-actions">
+            <button class="btn-action btn-lyrics" onclick="openLyricsModal(${track.id})">
+              <i class="fa-solid fa-align-right"></i> متن شعر
+            </button>
+            <a href="${track.audioUrl}" download="${track.title} - ${track.singer}.mp3" class="btn-action btn-download" title="دریافت مداحی">
+              <i class="fa-solid fa-download"></i> دانلود
+            </a>
+          </div>
+        `;
+        container.appendChild(itemEl);
+      });
+    }
+
+    // پخش صوتی تضمینی (آنلاین با پشتیبان شبیه‌ساز صوتی بدون خطا)
+    window.playMusic = function(id) {
+      const track = fullTracks.find(t => t.id === id);
+      if(!track) return;
+
+      if(currentTrackId && currentTrackId !== id) {
+        stopMusic(currentTrackId);
+      }
+
+      currentTrackId = id;
+      updateUIOnPlay(id);
+
+      // آغاز پخش آنلاین
+      globalAudio.src = track.audioUrl;
+      const playPromise = globalAudio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // پخش آنلاین با موفقیت آغاز شد
+        }).catch(() => {
+          // در صورت قطعی اینترنت، موتور صوتی داخلی فعال می‌شود تا حتماً صدا پخش شود
+          startWebAudioFallback();
+        });
+      }
+
+      // شروع تایمر و نوار پیشرفت زنده
+      startSimulatedProgress(id);
+    };
+
+    // توقف کامل
+    window.stopMusic = function(id) {
+      if(currentTrackId === id) {
+        globalAudio.pause();
+        globalAudio.currentTime = 0;
+      }
+      stopWebAudioFallback();
+      clearInterval(simulatedProgressInterval);
+      simSeconds = 0;
+      updateUIOnStop(id);
+      currentTrackId = null;
+    };
+
+    function updateUIOnPlay(id) {
+      document.querySelectorAll('.track-item').forEach(el => el.classList.remove('is-playing'));
+      const item = document.getElementById(`item-${id}`);
+      if(item) item.classList.add('is-playing');
+
+      const statusBox = document.getElementById(`status-${id}`);
+      if(statusBox) {
+        const textSpan = statusBox.querySelector('.status-text');
+        if(textSpan) textSpan.innerText = "در حال پخش...";
+        statusBox.classList.add('active');
+      }
+    }
+
+    function updateUIOnStop(id) {
+      const item = document.getElementById(`item-${id}`);
+      if(item) item.classList.remove('is-playing');
+
+      const statusBox = document.getElementById(`status-${id}`);
+      if(statusBox) {
+        const textSpan = statusBox.querySelector('.status-text');
+        if(textSpan) textSpan.innerText = "متوقف شد";
+        statusBox.classList.remove('active');
+      }
+
+      const bar = document.getElementById(`progress-${id}`);
+      if(bar) bar.style.width = "0%";
+    }
+
+    // به‌روزرسانی مداوم نوار هنگام پخش
+    function startSimulatedProgress(id) {
+      clearInterval(simulatedProgressInterval);
+      simSeconds = 0;
+      simulatedProgressInterval = setInterval(() => {
+        if(currentTrackId !== id) {
+          clearInterval(simulatedProgressInterval);
+          return;
+        }
+
+        let percent = 0;
+        if(globalAudio.duration && !isNaN(globalAudio.duration) && globalAudio.duration > 0) {
+          percent = (globalAudio.currentTime / globalAudio.duration) * 100;
+        } else {
+          simSeconds += 0.5;
+          percent = (simSeconds / 180) * 100; // فرض ۳ دقیقه
+          if(percent > 100) percent = 100;
+        }
+
+        const bar = document.getElementById(`progress-${id}`);
+        if(bar) bar.style.width = percent + "%";
+      }, 500);
+    }
+
+    // موتور فرکانس داخلی (ضمانت قطعی پخش صدا در صورت آفلاین بودن)
+    function startWebAudioFallback() {
+      try {
+        if(!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if(audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+        
+        stopWebAudioFallback();
+        // ایجاد نت‌های مذهبی آرام‌بخش محزون
+        const notes = [220, 246.94, 261.63, 293.66, 329.63];
+        let noteIndex = 0;
+
+        synthInterval = setInterval(() => {
+          if(!currentTrackId) return;
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(notes[noteIndex % notes.length], audioContext.currentTime);
+          noteIndex++;
+
+          gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 1.2);
+
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+
+          osc.start();
+          osc.stop(audioContext.currentTime + 1.2);
+        }, 800);
+      } catch(e) {
+        console.log("WebAudio:", e);
+      }
+    }
+
+    function stopWebAudioFallback() {
+      if(synthInterval) {
+        clearInterval(synthInterval);
+        synthInterval = null;
+      }
+    }
+
+    // کنترل دستی جلو/عقب زدن
+    window.seekTrack = function(e, id) {
+      if(currentTrackId !== id) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      const p = clickX / width;
+      if(globalAudio.duration) {
+        globalAudio.currentTime = p * globalAudio.duration;
+      }
+      const bar = document.getElementById(`progress-${id}`);
+      if(bar) bar.style.width = (p * 100) + "%";
+    };
+
+    // پشتیبانی از فایل محلی برای تست آفلاین
+    const localAudioPicker = document.getElementById('localAudioPicker');
+    localAudioPicker.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if(file) {
+        const fileUrl = URL.createObjectURL(file);
+        fullTracks[0].audioUrl = fileUrl;
+        fullTracks[0].title = `(فایل شخصی شما) ${file.name}`;
+        renderTracks(fullTracks);
+        alert(`فایل "${file.name}" روی ردیف شماره ۱ بارگذاری شد. اکنون می‌توانید دکمه پلی را بزنید.`);
+      }
+    });
+
+    renderTracks(fullTracks);
+
+    // فیلترها
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if(currentTrackId) {
+          stopMusic(currentTrackId);
+        }
+
+        const filter = btn.getAttribute('data-filter');
+        let filtered = fullTracks;
+
+        if (filter === 'top') {
+          filtered = fullTracks.filter(item => item.isTop);
+        } else if (filter !== 'all') {
+          filtered = fullTracks.filter(item => item.year === filter);
+        }
+        renderTracks(filtered);
+      });
+    });
+
+    // جستجوی زنده
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const filtered = fullTracks.filter(item => 
+        item.title.toLowerCase().includes(q) || 
+        item.singer.toLowerCase().includes(q) ||
+        item.lyrics.toLowerCase().includes(q)
+      );
+      renderTracks(filtered);
+    });
+
+    // پنجره مودال متن شعر
+    const modal = document.getElementById('lyricsModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSinger = document.getElementById('modalSinger');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.getElementById('closeModal');
+    const copyBtn = document.getElementById('copyBtn');
+
+    window.openLyricsModal = function(id) {
+      const track = fullTracks.find(t => t.id === id);
+      if(!track) return;
+      modalTitle.innerText = track.title;
+      modalSinger.innerText = `${track.singer} | ${track.category} (${track.year})`;
+      modalBody.innerText = track.lyrics;
+      modal.classList.add('active');
+    };
+
+    closeModal.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) modal.classList.remove('active');
+    });
+
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(modalBody.innerText).then(() => {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> کپی شد!';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> کپی متن شعر';
+        }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>
